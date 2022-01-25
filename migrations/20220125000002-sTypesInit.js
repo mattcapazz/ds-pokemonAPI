@@ -17,11 +17,10 @@ exports.setup = function (options, seedLink) {
 exports.up = function (db, callback) {
   db.runSql(
     `CREATE TABLE stypes(
-      id          INT,
+      id          INT PRIMARY KEY,
       name        VARCHAR(80) NOT NULL,
       "createdAt" TIMESTAMP WITH TIME ZONE,
-      "updatedAt" TIMESTAMP WITH TIME ZONE,
-      CONSTRAINT st_pkey PRIMARY KEY (id)
+      "updatedAt" TIMESTAMP WITH TIME ZONE
     );
   `,
     function (err) {

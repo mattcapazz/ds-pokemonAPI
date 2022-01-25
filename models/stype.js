@@ -4,6 +4,7 @@ const database = require("../cfg/database");
 const sType = database.define("stype", {
   id: {
     type: Sequelize.INTEGER,
+    allowNull: true,
     primaryKey: true,
   },
   name: {

@@ -1,47 +1,86 @@
 const { readFileSync } = require("fs");
+const pType = require("./models/ptype");
+const sType = require("./models/stype");
 const Pokemons = require("./models/pokemon");
 
 let data = readFileSync("./Pokemon.csv", "utf8").split("\n");
 data.shift();
 
-let aP = [],
-  i = -1,
-  aS = [],
-  j = -1;
+let // Primary Type
+  arrayPri = [],
+  schemPri = [],
+  i = 0,
+  // Secondary Type
+  arraySec = [],
+  schemSec = [],
+  j = 0;
+// Pokémans
+(schemPok = []),
+  // Fill pType and sType arrays
+  data.forEach((line, idx) => {
+    let l = line.split(",");
+    /**
+     * 0: PokeDex index number (id)
+     * 1: Name of the Pokemon (name)
+     * 2: Type of pokemon (pType)
+     * 3: Other Type of Pokemon (sType)
+     * Sum of Attack, Sp. Atk, Defense, Sp. Def, Speed and HP
+     * Hit Points
+     * Attack Strength
+     * Defensive Strength
+     * Special Attack Strength
+     * Special Defensive Strength
+     */
 
-data.forEach((line, idx) => {
-  let l = line.split(",");
+    // Return x amount of pokemons
+    if (idx < 700) {
+      if (arrayPri.indexOf(l[2]) == -1) {
+        arrayPri.push(l[2]);
+        // If pType is not present in array, add it
 
-  // Return x amount of pokemons
-  if (idx < 20) {
-    const pokemon = {
-      id: idx,
-      name: l[1],
-    };
-    Pokemons.create(pokemon);
+        let schema = {
+          id: i,
+          name: l[2],
+        };
+        // schema: { id: 0, name: "Grass" }
 
-    let pType = {};
-    if (aP.indexOf(l[2]) == -1) {
-      aP += l[2] + ", ";
-      i++;
+        schemPri.push(schema);
+        i++; // Increment ID
+      }
 
-      pType = {
-        id: i,
-        name: l[2],
+      if (arraySec.indexOf(l[3]) == -1 && l[3] != "") {
+        arraySec.push(l[3]);
+        let schema = {
+          id: j,
+          name: l[3],
+        };
+        schemSec.push(schema);
+        j++;
+      }
+
+      // Pokémon schema
+      let schema = {
+        id: idx,
+        name: l[1],
+        ptypeid: arrayPri.indexOf(l[2]),
+        stypeid: arraySec.indexOf(l[3]),
       };
+      if (arraySec.indexOf(l[3]) == -1) schema.stypeid = null;
+
+      schemPok.push(schema); // Add schema to pokemons array
     }
+  });
 
-    let sType = {};
-    if (aS.indexOf(l[3]) == -1) {
-      aS += l[3] + ", ";
-      j++;
-
-      sType = {
-        id: j,
-        name: l[3],
-      };
-    }
-
-    console.log(pokemon, pType, sType);
-  }
-});
+try {
+  pType.bulkCreate(schemPri).then(() => {
+    console.log("Adicionado os tipos primário à base de dados.");
+  });
+  sType.bulkCreate(schemSec).then(() => {
+    console.log("Adicionado os tipos secundário à base de dados.");
+  });
+  Pokemons.bulkCreate(schemPok).then(() => {
+    console.log("Adicionado os pokemons à base de dados.");
+  });
+} catch (err) {
+  console.log(err);
+}

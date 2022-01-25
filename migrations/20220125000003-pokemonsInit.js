@@ -19,13 +19,13 @@ exports.up = function (db, callback) {
     `CREATE TABLE pokemons(
       id          INT PRIMARY KEY,
       name        VARCHAR(80) NOT NULL,
-      ptype       INT,
-      stype       INT,
+      ptypeid     INT,
+      stypeid     INT,
       "createdAt" TIMESTAMP WITH TIME ZONE,
       "updatedAt" TIMESTAMP WITH TIME ZONE,
 
-      CONSTRAINT pokemons_pt_fkey FOREIGN KEY (ptype) REFERENCES ptypes (id),
-      CONSTRAINT pokemons_st_fkey FOREIGN KEY (stype) REFERENCES stypes (id)
+      FOREIGN KEY (ptypeid) REFERENCES ptypes (id),
+      FOREIGN KEY (stypeid) REFERENCES stypes (id)
     );
   `,
     function (err) {
