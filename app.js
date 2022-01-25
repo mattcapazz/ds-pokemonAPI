@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 const swagger = express();
 
-const config = require("./config");
+const config = require("./cfg/config");
 const controllers = require("./controllers");
 const services = require("./services");
 

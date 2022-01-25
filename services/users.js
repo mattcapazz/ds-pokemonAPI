@@ -1,5 +1,5 @@
 const isEmail = require("is-email");
-const db = require("../database");
+const db = require("../cfg/database");
 
 exports.canAuth = async ({ email, password }) => {
   if (!email || !password) {

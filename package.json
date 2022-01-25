@@ -4,12 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "migrations": "db-migrate up",
+    "migrate-up": "db-migrate up --config ./cfg/database.json",
+    "migrate-down": "db-migrate reset --config ./cfg/database.json",
     "rollback": "node database.js rollback",
     "start": "node app.js",
-    "watch": "nodemon app.js",
-    "documentation": "node doc/index.js",
-    "watchDocumentation": "nodemon doc/index.js"
+    "watch": "nodemon app.js"
   },
   "keywords": [],
   "author": "Hugo Diniz @mchuguinho / Matthew Rodrigues @mattcapazz",

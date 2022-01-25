@@ -1,9 +1,8 @@
 const { readFileSync } = require("fs");
+const Pokemons = require("./models/pokemon");
 
 let data = readFileSync("./Pokemon.csv", "utf8").split("\n");
 data.shift();
-
-//0|nome|pType|Stype
 
 let aP = [],
   i = -1,
@@ -19,6 +18,7 @@ data.forEach((line, idx) => {
       id: idx,
       name: l[1],
     };
+    Pokemons.create(pokemon);
 
     let pType = {};
     if (aP.indexOf(l[2]) == -1) {

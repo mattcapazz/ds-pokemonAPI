@@ -1,4 +1,4 @@
-const config = require("../config");
+const config = require("../cfg/config");
 
 exports.get = async (req, res) => {
   console.log("Received request", req.query);
