@@ -1,0 +1,682 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1",
+    "title": "Pokemon Types API"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["https", "http"],
+  "parameters": {
+    "email": {
+      "name": "email",
+      "description": "Email para autenticação",
+      "required": true,
+      "in": "header",
+      "default": "admin@dominio.pt"
+    },
+    "password": {
+      "name": "password",
+      "description": "Password para autenticação",
+      "required": true,
+      "in": "header",
+      "default": "Pass123*"
+    },
+    "id": {
+      "name": "id",
+      "description": "ID do Pokémon",
+      "required": true,
+      "in": "path",
+      "type": "integer"
+    },
+    "name": {
+      "name": "name",
+      "description": "Nome do Pokémon",
+      "required": true,
+      "in": "path",
+      "type": "string"
+    },
+    "ipType": {
+      "name": "ipType",
+      "description": "ID do Tipo Primário",
+      "required": true,
+      "in": "path",
+      "type": "integer"
+    },
+    "isType": {
+      "name": "isType",
+      "description": "ID do Tipo Secundário",
+      "required": true,
+      "in": "path",
+      "type": "integer"
+    }
+  },
+  "tags": [
+    {
+      "name": "Pokémons",
+      "description": "Operações sobre os Pokémons"
+    },
+    {
+      "name": "Primary Stat",
+      "description": "Operações sobre os Tipos Primários dos Pokémons"
+    },
+    {
+      "name": "Secondary Stat",
+      "description": "Operações sobre os Tipos Secundários dos Pokémons"
+    }
+  ],
+  "paths": {
+    "/pokemon": {
+      "get": {
+        "tags": ["Pokémons"],
+        "summary": "Retorna todos os Pokémons",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Pokemon"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Pokémons"],
+        "summary": "Cria um novo Pokémon",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/name"
+          },
+          {
+            "$ref": "#/parameters/ipType"
+          },
+          {
+            "$ref": "#/parameters/isType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pokémon adicionado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Pokémon."
+          }
+        }
+      }
+    },
+    "/pokemon/{id}": {
+      "get": {
+        "tags": ["Pokémons"],
+        "summary": "Retorna um Pokémon através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Pokemon"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Pokémon."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Pokémons"],
+        "summary": "Atualiza um Pokémon através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/id"
+          },
+          {
+            "$ref": "#/parameters/name"
+          },
+          {
+            "$ref": "#/parameters/ipType"
+          },
+          {
+            "$ref": "#/parameters/isType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pokémon atualizado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Pokémon."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Pokémons"],
+        "summary": "Apaga um Pokémon através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pokémon apagado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Pokémon."
+          }
+        }
+      }
+    },
+    "/pokemon/{name}": {
+      "get": {
+        "tags": ["Pokémons"],
+        "summary": "Retorna um Pokémon através do seu nome",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Pokemon"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Pokémon."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Pokémons"],
+        "summary": "Apaga um Pokémon através do seu nome",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pokémon apagado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Pokémon."
+          }
+        }
+      }
+    },
+    "/pokemon/{pType}": {
+      "get": {
+        "tags": ["Pokémons"],
+        "summary": "Retorna todos os Pokémons de um Tipo Primário",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/pType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Pokemon"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar Pokémons desse tipo."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Pokémons"],
+        "summary": "Apaga todos os Pokémons de um Tipo Primário",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/ipType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todos os Pokémons desse tipo foram apagados com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar Pokémons desse tipo."
+          }
+        }
+      }
+    },
+    "/pokemon/{sType}": {
+      "get": {
+        "tags": ["Pokémons"],
+        "summary": "Retorna todos os Pokémons de um Tipo Secundário",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/isType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Pokemon"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar Pokémons desse tipo."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Pokémons"],
+        "summary": "Apaga todos os Pokémons de um Tipo Secundário",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/isType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todos os Pokémons desse tipo foram apagados com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar Pokémons desse tipo."
+          }
+        }
+      }
+    },
+    "/pokemon/{pType}&{sType}": {
+      "get": {
+        "tags": ["Pokémons"],
+        "summary": "Retorna todos os Pokémons de um Tipo Primário e Secundário",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/ipType"
+          },
+          {
+            "$ref": "#/parameters/isType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Pokemon"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar Pokémons que correspondessem aos tipos indicados."
+          }
+        }
+      }
+    },
+    "/api/pType": {
+      "get": {
+        "tags": ["Primary Stat"],
+        "summary": "Retorna todos os Tipos Primários",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Type"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Primary Stat"],
+        "summary": "Cria um Tipo Primário",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/ipType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/pType"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Tipo Primário."
+          }
+        }
+      }
+    },
+    "/api/pType/{id}": {
+      "get": {
+        "tags": ["Primary Stat"],
+        "summary": "Retorna um Tipo Primário através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/ipType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/pType"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Tipo Primário."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Primary Stat"],
+        "summary": "Atualiza um Tipo Primário através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/ipType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo Secundário atualizado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Tipo Secundário."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Primary Stat"],
+        "summary": "Apaga um Tipo Primário através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo Primário apagado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Tipo Primário."
+          }
+        }
+      }
+    },
+
+    "/api/sType": {
+      "get": {
+        "tags": ["Secondary Stat"],
+        "summary": "Retorna todos os Tipos Secundários",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/sType"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Secondary Stat"],
+        "summary": "Cria um Tipo Secundário",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "name": "nsType",
+            "description": "Nome do Tipo Secundário do Pokémon",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo Secundário criado com sucesso!"
+          }
+        }
+      }
+    },
+    "/api/sType/{id}": {
+      "get": {
+        "tags": ["Secondary Stat"],
+        "summary": "Retorna um Tipo Secundário através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/sType"
+            }
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Tipo Secundário."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Secondary Stat"],
+        "summary": "Atualiza um Tipo Secundário através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/isType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo Secundário atualizado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Tipo Secundário."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Secondary Stat"],
+        "summary": "Apaga um Tipo Secundário através do seu ID",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "$ref": "#/parameters/email"
+          },
+          {
+            "$ref": "#/parameters/password"
+          },
+          {
+            "$ref": "#/parameters/isType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo Secundário apagado com sucesso!"
+          },
+          "400": {
+            "description": "Não foi possível encontrar o Tipo Secundário."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Pokemon": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Bulbasaur"
+        },
+        "primaryType": {
+          "type": "string",
+          "example": "1"
+        },
+        "secondaryType": {
+          "type": "string",
+          "example": "2"
+        }
+      }
+    },
+    "pType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Grass"
+        }
+      }
+    },
+    "sType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 2
+        },
+        "name": {
+          "type": "string",
+          "example": "Poison"
+        }
+      }
+    }
+  }
+}

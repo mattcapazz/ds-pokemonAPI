@@ -1,16 +1,18 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const swagger = express();
 
 const config = require("./config");
 const controllers = require("./controllers");
 const services = require("./services");
 
-console.log(`Server will run in port ${config.port}`);
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+swaggerDocument.host = `${config.hostname}:${config.port}`;
 
 app.use(express.json());
 app.use(cors({ credentials: true, origin: true }));
-
 [
   ["get", "/api/version", controllers.version.get, {}],
   ["get", "/api/users", controllers.users.get, { requiresAuth: true }],
@@ -45,7 +47,11 @@ app.use(cors({ credentials: true, origin: true }));
     controller
   );
 });
-
 app.listen(config.port, () => {
-  console.log(`api is listening on port ${config.port}!`);
+  console.log(`Server will run in port ${config.port};`);
+});
+
+swagger.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+swagger.listen(config.swaggerPort, () => {
+  console.log(`While Swagger will run in port ${config.swaggerPort}.`);
 });
