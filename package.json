@@ -12,7 +12,7 @@
     "watchDocumentation": "nodemon doc/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Hugo Diniz @mchuguinho / Matthew Rodrigues @mattcapazz",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
