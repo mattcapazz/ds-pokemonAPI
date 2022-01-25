@@ -48,10 +48,10 @@ app.use(cors({ credentials: true, origin: true }));
   );
 });
 app.listen(config.port, () => {
-  console.log(`Server will run in port ${config.port};`);
+  console.log(`Server is running in port ${config.port};`);
 });
 
 swagger.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 swagger.listen(config.swaggerPort, () => {
-  console.log(`While Swagger will run in port ${config.swaggerPort}.`);
+  console.log(`While Swagger is running in port ${config.swaggerPort}.`);
 });

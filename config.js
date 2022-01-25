@@ -1,9 +1,9 @@
 require("dotenv").config();
 
 module.exports = {
-  port: process.env.PORT || 3000,
+  port: process.env.PORT,
   version: process.env.VERSION,
-  hostname: process.env.HOSTNAME || "localhost",
+  hostname: process.env.HOSTNAME,
 
   pg: {
     hostname: process.env.POSTGRES_HOSTNAME,
