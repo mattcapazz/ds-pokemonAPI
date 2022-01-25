@@ -47,6 +47,7 @@ app.use(cors({ credentials: true, origin: true }));
     controller
   );
 });
+
 app.listen(config.port, () => {
   console.log(`Server is running in port ${config.port};`);
 });

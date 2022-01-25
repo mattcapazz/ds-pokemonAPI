@@ -1,5 +1,5 @@
 const express = require("express");
-const sTypeController = require("../controllers/pType.controller.js");
+const sTypeController = require("../controllers/sType.controller.js");
 
 const router = express.Router();
 
