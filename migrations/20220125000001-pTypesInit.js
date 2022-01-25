@@ -16,11 +16,13 @@ exports.setup = function (options, seedLink) {
 
 exports.up = function (db, callback) {
   db.runSql(
-    `CREATE TABLE pokemons(
-      id    INT PRIMARY KEY,
-      name  VARCHAR(80) NOT NULL,
+    `CREATE TABLE ptypes(
+      id          INT,
+      name        VARCHAR(80) NOT NULL,
       "createdAt" TIMESTAMP WITH TIME ZONE,
-      "updatedAt" TIMESTAMP WITH TIME ZONE
+      "updatedAt" TIMESTAMP WITH TIME ZONE,
+
+      CONSTRAINT pt_pkey PRIMARY KEY (id)
     );
   `,
     function (err) {
@@ -31,7 +33,7 @@ exports.up = function (db, callback) {
 };
 
 exports.down = function (db, callback) {
-  db.runSql("DROP TABLE IF EXISTS pokemons", function (err) {
+  db.runSql("DROP TABLE IF EXISTS ptypes", function (err) {
     if (err) return console.log(err);
     callback();
   });

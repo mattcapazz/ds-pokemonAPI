@@ -14,12 +14,16 @@ exports.setup = function (options, seedLink) {
   seed = seedLink;
 };
 
-exports.up = function (db) {
+exports.up = function (db, callback) {
   db.runSql(
     `INSERT INTO users(email, password, name, is_admin) VALUES (
     'admin@ipvc.pt', sha256('12456'), 'admin', TRUE
     );
-  `
+  `,
+    function (err) {
+      if (err) return console.log(err);
+      callback();
+    }
   );
 };
 
