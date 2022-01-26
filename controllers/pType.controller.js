@@ -60,7 +60,7 @@ let deletepType = (req,res) => {
     
     pType.destroy({
         where: {
-            id:id
+            id
         }
     })
     .then((result) => {
@@ -73,6 +73,11 @@ let deletepType = (req,res) => {
                 message: "Counldn't find a Primary Type with that ID"
             })
         }
+    })
+    .catch((err) => {
+        return res.status(500).json({
+            message: "Can't delete because there are pokemons associated with it"
+        })
     })
 }
 
