@@ -1,32 +1,32 @@
 const Pokemon = require("../models/pokemon");
 
-const getAllPokemons = (req, res, next) => {
+let getAllPokemons = (req, res, next) => {
   Pokemon.findAll()
     .then((result) => {
-      res.status(200).json(result);
+      return res.status(200).json(result);
     })
     .catch((err) => {
-      res.status(500).json({
+      return res.status(500).json({
         message: err.message,
       });
     });
 };
 
-const getPokemonById = (req, res, next) => {
+let getPokemonById = (req, res, next) => {
   let id = req.params.id;
 
-  return Pokemon.findByPk(id).then((result) => {
+  Pokemon.findByPk(id).then((result) => {
     if (result) {
-      res.status(200).json({
+      return res.status(200).json({
         message: "Pokemon found!",
         result: result,
       });
     } else {
-      res.status(404).json({
+      return res.status(404).json({
         message: "Pokemon not found!",
       });
     }
-  });
+  })
 };
 
 let getPokemonByName = (req, res, next) => {
@@ -46,10 +46,10 @@ let getPokemonByName = (req, res, next) => {
   });
 };
 
-const getPokemonBypType = (req, res) => {
-  let pType = req.params.ptypeid;
+const getPokemonBypType = (req, res, next) => {
+  let pType = req.params.pType;
 
-  Pokemon.findByPk(pType).then((result) => {
+  Pokemon.findAll({ where : { ptypeid : pType }}).then((result) => {
     if (result) {
       return res.status(200).json({
         message: "Pokemon(s) found!",
@@ -64,9 +64,9 @@ const getPokemonBypType = (req, res) => {
 };
 
 const getPokemonBysType = (req, res) => {
-  let sType = req.params.stypeid;
+  let sType = req.params.sType;
 
-  Pokemon.findByPk(sType).then((result) => {
+  Pokemon.findAll({where : { stypeid : sType}}).then((result) => {
     if (result) {
       return res.status(200).json({
         message: "Pokemon(s) found!",
@@ -81,10 +81,10 @@ const getPokemonBysType = (req, res) => {
 };
 
 let getPokemonBypTypesType = (req, res) => {
-  let pType = req.params.ptypeid;
-  let sType = req.params.stypeid;
+  let pType = req.params.pType;
+  let sType = req.params.sType;
 
-  Pokemon.findByPk(pType, sType).then((result) => {
+  Pokemon.findAll({where : {ptypeid : pType, stypeid : sType}}).then((result) => {
     if (result) {
       return res.status(200).json({
         message: "Pokemon(s) found!",
@@ -147,7 +147,7 @@ let deletePokemonByName = (req, res) => {
 };
 
 let deletePokemonBypType = (req, res) => {
-  let pType = req.params.ptypeid;
+  let pType = req.params.pType;
 
   Pokemon.destroy({
     where: { ptypeid: pType },
@@ -171,7 +171,7 @@ let deletePokemonBypType = (req, res) => {
 };
 
 let deletePokemonBysType = (req, res) => {
-  let sType = req.params.stypeid;
+  let sType = req.params.sType;
 
   Pokemon.destroy({
     where: { stypeid: sType },
@@ -195,9 +195,9 @@ let deletePokemonBysType = (req, res) => {
 };
 
 let createPokemon = (req, res) => {
-  let name = req.headers.name;
-  let pType = req.headers.ptypeid;
-  let sType = req.headers.stypeid;
+  let name = req.body.name;
+  let pType = req.body.pType;
+  let sType = req.body.sType;
 
   Pokemon.create({
     name: name,
@@ -216,6 +216,7 @@ let createPokemon = (req, res) => {
       });
     });
 };
+
 
 module.exports = {
   getAllPokemons,

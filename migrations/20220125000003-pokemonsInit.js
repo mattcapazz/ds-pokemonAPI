@@ -18,7 +18,7 @@ exports.up = function (db, callback) {
   db.runSql(
     `CREATE TABLE pokemons(
       id          SERIAL PRIMARY KEY,
-      name        VARCHAR(80) NOT NULL,
+      name        VARCHAR(80),
       ptypeid     INT,
       stypeid     INT,
       "createdAt" TIMESTAMP WITH TIME ZONE,
