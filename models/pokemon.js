@@ -4,7 +4,7 @@ const database = require("../cfg/database");
 const pType = require("./ptype");
 const sType = require("./stype");
 
-const Pokemon = database.define("pokemon", {
+const Pokemon = database.define("pokemons", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,

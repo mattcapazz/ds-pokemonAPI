@@ -17,7 +17,7 @@ exports.setup = function (options, seedLink) {
 exports.up = function (db, callback) {
   db.runSql(
     `CREATE TABLE pokemons(
-      id          INT PRIMARY KEY,
+      id          SERIAL PRIMARY KEY,
       name        VARCHAR(80) NOT NULL,
       ptypeid     INT,
       stypeid     INT,
