@@ -4,9 +4,7 @@ const app = express();
 const swagger = express();
 
 const config = require("./cfg/config");
-const controllers = require("./controllers");
 const route = require("./routes");
-const services = require("./services");
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
@@ -14,6 +12,7 @@ swaggerDocument.host = `${config.hostname}:${config.port}`;
 
 app.use(express.json());
 app.use(cors({ credentials: true, origin: true }));
+
 app.use(`/pokemon`, route.pokemon);
 app.use(`/pType`, route.pType);
 app.use(`/sType`, route.sType);

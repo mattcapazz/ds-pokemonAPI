@@ -15,10 +15,9 @@ router.put("/:id", pokemonController.updatePokemon);
 
 router.delete("/:id", pokemonController.deletePokemonById);
 
+router.delete("/:id", pokemonController.deletePokemonById);
 router.delete("/pokemon/:name", pokemonController.deletePokemonByName);
-
 router.delete("/pType/:pType", pokemonController.deletePokemonBypType);
-
 router.delete("/sType/:sType", pokemonController.deletePokemonBysType);
 
 module.exports = router;

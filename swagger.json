@@ -506,7 +506,7 @@
       }
     },
 
-    "/api/sType": {
+    "/sType": {
       "get": {
         "tags": ["Secondary Stat"],
         "summary": "Retorna todos os Tipos Secundários",
@@ -553,7 +553,7 @@
         }
       }
     },
-    "/api/sType/{id}": {
+    "/sType/{id}": {
       "get": {
         "tags": ["Secondary Stat"],
         "summary": "Retorna um Tipo Secundário através do seu ID",
