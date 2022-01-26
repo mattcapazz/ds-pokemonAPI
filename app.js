@@ -5,6 +5,7 @@ const swagger = express();
 
 const config = require("./cfg/config");
 const controllers = require("./controllers");
+const route = require("./routes");
 const services = require("./services");
 
 const swaggerUi = require("swagger-ui-express");
@@ -13,11 +14,14 @@ swaggerDocument.host = `${config.hostname}:${config.port}`;
 
 app.use(express.json());
 app.use(cors({ credentials: true, origin: true }));
+app.use(`/pokemon`, route.pokemon);
+app.use(`/pType`, route.pType);
+app.use(`/sType`, route.sType);
 [
-  ["get", "/api/version", controllers.version.get, {}],
-  ["get", "/api/users", controllers.users.get, { requiresAuth: true }],
-  ["post", "/api/users", controllers.users.post, { requiresAuth: true }],
-  ["get", "/api/admins", controllers.admins.get, { requiresAuth: true }],
+  ["get", "/version", controllers.version.get, {}],
+  ["get", "/users", controllers.users.get, { requiresAuth: true }],
+  ["post", "/users", controllers.users.post, { requiresAuth: true }],
+  ["get", "/admins", controllers.admins.get, { requiresAuth: true }],
 ].forEach((r) => {
   const [method, url, controller, permissions] = r;
 
@@ -28,6 +32,7 @@ app.use(cors({ credentials: true, origin: true }));
       console.log(`[${req.socket.remoteAddress}] ${req.method} ${url} `);
       return next();
     },
+
     // middleware para verificar autenticação
     async (req, res, next) => {
       if (

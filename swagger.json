@@ -6,7 +6,7 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["https", "http"],
+  "schemes": ["http"],
   "parameters": {
     "email": {
       "name": "email",
@@ -636,19 +636,27 @@
       "properties": {
         "id": {
           "type": "integer",
-          "example": 1
+          "example": 0
         },
         "name": {
           "type": "string",
           "example": "Bulbasaur"
         },
-        "primaryType": {
+        "createdAt": {
           "type": "string",
-          "example": "1"
+          "example": "2022-01-25T00:00:00.000Z"
         },
-        "secondaryType": {
+        "updatedAt": {
           "type": "string",
-          "example": "2"
+          "example": "2022-01-25T00:00:00.000Z"
+        },
+        "ptypeid": {
+          "type": "integer",
+          "example": 0
+        },
+        "stypeid": {
+          "type": "integer",
+          "example": 0
         }
       }
     },

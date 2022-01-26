@@ -6,16 +6,10 @@ exports.canAuth = async ({ email, password }) => {
     return false;
   }
 
-  const statement = `
-            SELECT
-                *
-            FROM
-                users
-            WHERE
-                email = $1 AND password = CAST(sha256($2) AS VARCHAR);
-        `;
-
+  const statement = `SELECT * FROM users WHERE email = $1 AND password = CAST(sha256($2) AS VARCHAR);`;
   const values = [email, password];
+
+  console.log(values);
 
   return await db
     .query(statement, values)
@@ -23,34 +17,14 @@ exports.canAuth = async ({ email, password }) => {
 };
 
 exports.getAll = async ({ isAdmin = false }) => {
-  const statement = `
-            SELECT
-                id, email, name 
-            FROM
-                users
-            WHERE
-                is_admin = $1
-            ORDER by
-                name;
-      `;
-
+  const statement = `SELECT id, email, name FROM users WHERE is_admin = $1 ORDER by name;`;
   const values = [isAdmin];
-
   return await db.query(statement, values).then((users) => users.rows);
 };
 
 exports.getByEmail = async ({ email }) => {
-  const statement = `
-            SELECT 
-                id, email, name
-            FROM
-                users
-            WHERE
-                email = $1;
-      `;
-
+  const statement = `SELECT id, email, name FROM users WHERE email = $1;`;
   const values = [email];
-
   return await db.query(statement, values).then((q) => q.rows[0]);
 };
 
@@ -74,21 +48,11 @@ exports.insert = async ({ email, password, name }) => {
     );
   }
 
-  const statement = `
-                INSERT INTO
-                    users(email, name, password)
-                VALUES
-                    ($1, $2, CAST(sha256($3) AS VARCHAR))
-                RETURNING id;
-          `;
+  const statement = `INSERT INTO users(email, name, password) VALUES ($1, $2, CAST(sha256($3) AS VARCHAR)) RETURNING id;`;
 
   const values = [email, name, password];
-
   let createdUserId = await db.query(statement, values).then((q) => q.rows);
 
-  if (createdUserId) {
-    return createdUserId;
-  } else {
-    throw new Error("The user creation failed");
-  }
+  if (createdUserId) return createdUserId;
+  else throw new Error("The user creation failed");
 };
