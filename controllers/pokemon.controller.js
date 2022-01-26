@@ -198,16 +198,19 @@ let createPokemon = (req, res) => {
   let name = req.body.name;
   let pType = req.body.pType;
   let sType = req.body.sType;
+  let id = Math.floor(Math.random() * (5000 - 0));
 
+  
   Pokemon.create({
-    name: name,
+    name,
     ptypeid: pType,
     stypeid: sType,
+    id
   })
     .then((result) => {
       return res.status(200).json({
         message: "Pokemon created!",
-        result: result,
+        result
       });
     })
     .catch((err) => {
@@ -217,6 +220,38 @@ let createPokemon = (req, res) => {
     });
 };
 
+let updatePokemon = (req,res) => {
+  let name = req.body.name
+  let pType = req.body.pType
+  let sType = req.body.sType
+  let id = req.params.id
+
+  Pokemon.update({
+      name: name,
+      ptypeid : pType,
+      stypeid : sType
+  },{
+      where: {
+          id: id
+      }
+  })
+  .then((result) => {
+      if(result > 0) {
+          return res.status(200).json({
+              message: "Pokemon updated!"
+          })
+      }else{
+          return res.status(404).json({
+              message: "Couldn't find any Pokemon with that ID"
+          })
+      }
+  })
+  .catch((err) => {
+      return res.status(500).json({
+          message: err.message
+      })
+  })
+}
 
 module.exports = {
   getAllPokemons,
@@ -230,4 +265,5 @@ module.exports = {
   createPokemon,
   deletePokemonBypType,
   deletePokemonBysType,
+  updatePokemon
 };

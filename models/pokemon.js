@@ -7,6 +7,7 @@ const sType = require("./stype");
 const Pokemon = database.define("pokemons", {
   id: {
     type: Sequelize.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
   },
   name: {

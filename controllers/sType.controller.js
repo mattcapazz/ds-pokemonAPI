@@ -32,14 +32,15 @@ let getsTypeById = (req, res) => {
 
 let createsType = (req,res) => {
     let name = req.params.name
+    let id = Math.floor(Math.random() * (5000 - 0))
 
     sType.create({
-        name: name
+        name
     })
     .then((result) => {
         return res.status(200).json({
             message: "Secondary Type created!",
-            result: result
+            result
         })
     })
     .catch((err) => {

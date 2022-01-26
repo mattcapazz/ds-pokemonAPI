@@ -31,15 +31,21 @@ let getpTypeById = (req, res) => {
 }
 
 let createpType = (req,res) => {
-    let name = req.params.name
+    let name = req.body.name
+    let id = Math.floor(Math.random() * (5000 - 0))
+
+    console.log(name)
 
     pType.create({
-        name: name
+        id,
+        name
     })
     .then((result) => {
+        console.log(result)
+        console.log(pType)
         return res.status(200).json({
             message: "Primary Type created!",
-            result: result
+            result
         })
     })
     .catch((err) => {
